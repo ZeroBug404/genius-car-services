@@ -1,0 +1,11 @@
+.services-title{
+    text-align: center;
+
+}
+.services-container{
+    /* width: 100%;
+    margin: auto; */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;    
+}
