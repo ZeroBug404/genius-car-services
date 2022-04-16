@@ -1,8 +1,17 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import auth from '../../../firebase.init';
 import './Register.css'
 
 const Register = () => {
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+      ] = useCreateUserWithEmailAndPassword(auth);
 
     const navigate = useNavigate();
 
@@ -10,7 +19,12 @@ const Register = () => {
         e.preventDefault()
         const email = e.target.email.value;
         const password = e.target.password.value
-        console.log(email, password);
+        
+        createUserWithEmailAndPassword(email, password)
+    }
+
+    if (user) {
+        navigate('/home')
     }
 
     const navigateLogin = () => {
