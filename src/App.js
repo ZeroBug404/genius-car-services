@@ -1,6 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import ManageServices from "./Pages/ManageServices/ManageServices";
 import About from "./Pages/About/About";
+import AddService from "./Pages/AddService/AddService";
 import Checkout from "./Pages/Checkout/Checkout";
 import Home from "./Pages/Home/Home/Home";
 import Login from "./Pages/Login/Login/Login";
@@ -23,6 +25,16 @@ function App() {
           path="/service/:serviceId"
           element={<ServceDetail></ServceDetail>}
         ></Route>
+        <Route path="/addservice" element={
+          <RequireAuth>
+            <AddService></AddService>
+          </RequireAuth>
+        }></Route>
+        <Route path="/manageservices" element={
+          <RequireAuth>
+            <ManageServices></ManageServices>
+          </RequireAuth>
+        }></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/register" element={<Register></Register>}></Route>
         <Route
