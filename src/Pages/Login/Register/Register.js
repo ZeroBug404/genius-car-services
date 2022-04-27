@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import './Register.css'
 
@@ -12,15 +12,30 @@ const Register = () => {
         loading,
         error,
       ] = useCreateUserWithEmailAndPassword(auth);
+    
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
     const navigate = useNavigate();
 
-    const handleRegister = (e) => {
-        e.preventDefault()
-        const email = e.target.email.value;
-        const password = e.target.password.value
+    // const handleRegister = (e) => {
+    //     e.preventDefault()
+    //     const email = e.target.email.value;
+    //     const password = e.target.password.value
         
-        createUserWithEmailAndPassword(email, password)
+    //     createUserWithEmailAndPassword(email, password)
+    // }
+
+    const handleRegister = async (event) => {
+        event.preventDefault();
+        const name = event.target.name.value;
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+        // const agree = event.target.terms.checked;
+
+        await createUserWithEmailAndPassword(email, password);
+        await updateProfile({ displayName: name });
+        console.log('Updated profile');
+        navigate('/home');
     }
 
     if (user) {
